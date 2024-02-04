@@ -4,7 +4,7 @@ build: build-be build-fe
 build-fe:
 	docker run --rm -ti \
 		-v "/$(PWD)":/app \
-		wvp-ci \
+		lsf-node-ci \
 		bash -c "cd web_src \
 			&& npm --registry=https://registry.npmmirror.com install \
 			&& npm run build"
@@ -13,10 +13,10 @@ build-be:
 	docker run --rm -ti \
 		-v "/$(PWD)":/app \
 		-v /$(PWD)/.m2/:/root/.m2/ \
-		wvp-ci \
+		lsf-java-ci \
 		bash -c "mvn package"
 
-DEPLOY_DIR:=$(HOME)/repo/gitee/lsf/LiveStreamForward
+DEPLOY_DIR:=$(HOME)/repo/gitee/lsf/forward
 DEPLOY_DIR_WVP_FE:=$(DEPLOY_DIR)/nginx/html
 DEPLOY_DIR_WVP_SQL:=$(DEPLOY_DIR)/mysql/docker-entrypoint-initdb.d
 DEPLOY_DIR_WVP_BE:=$(DEPLOY_DIR)/wvp/app
